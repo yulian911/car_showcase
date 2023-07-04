@@ -1,4 +1,6 @@
-import { CarCard, CustomeFilter, Hero, SearchBar } from '@/components';
+'use client';
+import { CarCard, CustomeFilter, Hero, SearchBar, ShowMore } from '@/components';
+import { fuels, yearsOfProduction } from '@/constants';
 import { HomeProps } from '@/types';
 import { fetchCars } from '@/utils';
 import Image from 'next/image';
@@ -24,8 +26,8 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <CustomeFilter title="fuel" />
-            <CustomeFilter title="year" />
+            <CustomeFilter title="fuel" options={fuels} />
+            <CustomeFilter title="year" options={yearsOfProduction} />
           </div>
         </div>
         {!isDataEmpty ? (
@@ -36,10 +38,10 @@ export default async function Home({ searchParams }: HomeProps) {
               ))}
             </div>
 
-            {/* <ShowMore
+            <ShowMore
               pageNumber={(searchParams.limit || 10) / 10}
               isNext={(searchParams.limit || 10) > allCars.length}
-            /> */}
+            />
           </section>
         ) : (
           <div className="home__error-container">
